@@ -1,0 +1,38 @@
+version: '3.3'
+
+services:
+    spaced-repetition-db:
+        image: mongo
+        restart: always
+        container_name: spaced-repetition-db
+        hostname: spaced-repetition-db
+        volumes:
+            - ./db:/data/db
+        ports:
+            - '27017:27017'
+        command: --smallfiles
+
+    web:
+        image: node
+        container_name: spaced-repetition-api
+        working_dir: /home/node/app
+        expose:
+            - 3000
+        environment:
+            VIRTUAL_HOST: ${VIRTUAL_HOST}
+            LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+            LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+            NODE_ENV: production
+        volumes:
+            - ./app:/home/node/app
+        restart: always
+        command: 'npm start'
+        links:
+            - spaced-repetition-db
+        depends_on:
+            - spaced-repetition-db
+
+networks:
+    default:
+        external:
+            name: nginx-proxy

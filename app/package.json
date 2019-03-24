@@ -1,0 +1,15 @@
+{
+    "name": "rn-spaced-repetition-api",
+    "version": "1.0.0",
+    "description": "Web API for rn-spaced-repetition",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "body-parser": "1.18.3",
+        "express": "4.16.1",
+        "mongoose": "5.4.19"
+    }
+}
