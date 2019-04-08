@@ -25,6 +25,7 @@ services:
             NODE_ENV: production
         volumes:
             - ./app:/home/node/app
+            - ./config:/home/node/config
         restart: always
         command: 'npm start'
         links:
